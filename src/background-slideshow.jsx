@@ -4,7 +4,7 @@ const BackgroundSlideshow = ({ children }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const images = Array.from({ length: 7 }, (_, i) => 
-    `img/background_photo_${i + 1}.jpg`
+    `src/img/background_photo_${i + 1}.jpg`
   );
 
   useEffect(() => {
