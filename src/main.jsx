@@ -124,7 +124,7 @@ function Main() {
     <div className="main-footer">
         Photography © 2025 Suyash Srijan. All code open source at{" "}
         <a 
-          href="https://github.com/theblixguy" 
+          href="https://github.com/theblixguy/personal-website" 
           target="_blank" 
           rel="noopener noreferrer"
         >
