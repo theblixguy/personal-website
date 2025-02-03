@@ -60,16 +60,16 @@ const StatusBar = () => {
 
   const getBatteryIcon = () => {
     if (batteryData.level === null) {
-      return <IoBatteryFull className="battery-icon" />;
+      return <IoBatteryFull role="presentation" className="battery-icon" />;
     }
     if (batteryData.level >= 80) {
       return batteryData.charging ? 
-        <IoBatteryCharging className="battery-icon" /> : 
-        <IoBatteryFull className="battery-icon" />;
+        <IoBatteryCharging role="presentation" className="battery-icon" /> : 
+        <IoBatteryFull role="presentation" className="battery-icon" />;
     } else if (batteryData.level >= 50) {
-      return <IoBatteryHalf className="battery-icon" />;
+      return <IoBatteryHalf role="presentation" className="battery-icon" />;
     } else {
-      return <IoBatteryDead className="battery-icon" />;
+      return <IoBatteryDead role="presentation" className="battery-icon" />;
     }
   };
 
