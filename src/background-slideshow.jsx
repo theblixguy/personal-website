@@ -3,9 +3,8 @@ import React, { useState, useEffect } from 'react';
 const BackgroundSlideshow = ({ children }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
-  const images = Array.from({ length: 7 }, (_, i) => 
-    `src/img/background_photo_${i + 1}.jpg`
-  );
+  const imageModules = import.meta.glob('./img/background_photo_*.jpg', { eager: true });
+  const images = Object.values(imageModules).map(module => module.default);
 
   useEffect(() => {
     const interval = setInterval(() => {
