@@ -4,7 +4,7 @@ const BackgroundSlideshow = ({ children }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const images = Array.from({ length: 7 }, (_, i) => 
-    `https://suyashsrijan.com/img/background_photo_${i + 1}.jpg`
+    `img/background_photo_${i + 1}.jpg`
   );
 
   useEffect(() => {
