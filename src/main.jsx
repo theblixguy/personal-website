@@ -25,12 +25,12 @@ const sections = [
     title: 'About',
     items: [
       {
-        icon: <div className="icon"><BsFileText role="presentation" className="github" /></div>,
+        icon: <div className="icon file"><BsFileText role="presentation" className="file" /></div>,
         label: 'CV',
         link: '/download/Suyash_Srijan_Resume.pdf'
       },
       {
-        icon: <div className="icon"><BsGithub role="presentation" className="github" /></div>,
+        icon: <div className="icon github"><BsGithub role="presentation" className="github" /></div>,
         label: 'GitHub',
         link: 'https://github.com/theblixguy'
       }
@@ -40,27 +40,27 @@ const sections = [
     title: 'Social',
     items: [
       {
-        icon: <div className="icon"><BsLinkedin role="presentation" className="linkedin" /></div>,
+        icon: <div className="icon linkedin"><BsLinkedin role="presentation" className="linkedin" /></div>,
         label: 'LinkedIn',
         link: 'https://www.linkedin.com/in/suyashsrij'
       },
       {
-        icon: <div className="icon"><BsInstagram role="presentation" className="instagram" /></div>,
+        icon: <div className="icon instagram"><BsInstagram role="presentation" className="instagram" /></div>,
         label: 'Instagram',
         link: 'https://instagram.com/suyashsrijan'
       },
       {
-        icon: <div className="icon"><BsThreads role="presentation" className="threads" /></div>,
+        icon: <div className="icon threads"><BsThreads role="presentation" className="threads" /></div>,
         label: 'Threads',
         link: 'https://threads.net/@suyashsrijan'
       },
       {
-        icon: <div className="icon"><FaBluesky role="presentation" className="bluesky" /></div>,
+        icon: <div className="icon bluesky"><FaBluesky role="presentation" className="bluesky" /></div>,
         label: 'Bluesky',
         link: 'https://bsky.app/profile/suyashsrijan.bsky.social'
       },
       {
-        icon: <div className="icon"><FaSoundcloud role="presentation" className="soundcloud" /></div>,
+        icon: <div className="icon soundcloud"><FaSoundcloud role="presentation" className="soundcloud" /></div>,
         label: 'SoundCloud',
         link: 'https://soundcloud.com/suyashsrijan'
       }
@@ -70,7 +70,7 @@ const sections = [
     title: 'Contact',
     items: [
       {
-        icon: <div className="icon"><BsEnvelope role="presentation" className="email" /></div>,
+        icon: <div className="icon email"><BsEnvelope role="presentation" className="email" /></div>,
         label: 'Email',
         link: 'mailto:suyashsrijan@outlook.com'
       }

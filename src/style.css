@@ -144,6 +144,10 @@ body {
   color: #9ca3af;
 }
 
+.file svg {
+  color: #333333;
+}
+
 .github svg {
   color: #333333;
 }
