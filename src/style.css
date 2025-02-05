@@ -292,3 +292,61 @@ body {
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
+
+/* Avatar + animations */
+
+.avatar-container {
+  display: inline-block;
+  width: 35.5px;
+  height: 35.5px;
+  margin-right: 12px;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+  perspective: 1000px;
+}
+
+.avatar-flipper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease-out;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.avatar-flipper.flipped {
+  transform: rotateY(180deg);
+}
+
+.avatar-front, .avatar-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.avatar-back {
+  transform: rotateY(180deg);
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emoji {
+  font-size: 20px;
+  line-height: 1;
+  transform: rotateY(180deg);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}

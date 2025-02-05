@@ -18,6 +18,7 @@ import {
 
 import StatusBar from './status-bar';
 import BackgroundSlideshow from './background-slideshow';
+import Avatar from './avatar';
 
 const sections = [
   {
@@ -80,51 +81,54 @@ const sections = [
 function Main() {
   return (
     <BackgroundSlideshow>
-    <div className="container">
-      <div className="phone">
-        <div className="phone-content">
-          <StatusBar />
-          <main role="main" aria-label="Personal Profile">
-            <header className="header">
-              <h1>Suyash Srijan</h1>
-              <p>iOS Engineer at Marks & Spencer in London, UK.</p>
-              <br />
-              <p>When I am free, I enjoy playing/listening to music, playing video games and reading about astrophysics.</p>
-              <br />
-              <p>My neurospicy brain also loves exploring crafting, cooking/baking, and whatever creative pursuit catches my interest!</p>
-            </header>
-            <div className="section-list">
-              {sections.map((section) => (
-                <section key={section.title}>
-                  <div className="section-header">
-                    <h2>{section.title}</h2>
-                  </div>
-                  <div className="section-content">
-                    {section.items.map((item) => (
-                      <a
-                        key={item.label}
-                        href={item.link}
-                        className="list-item"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Link to ${item.label} (opens in new tab)`}
-                      >
-                        {item.icon}
-                        <span className="label">{item.label}</span>
-                        <div className="chevron">
-                          <BsChevronRight role="presentation" />
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          </main>
+      <div className="container">
+        <div className="phone">
+          <div className="phone-content">
+            <StatusBar />
+            <main role="main" aria-label="Personal Profile">
+              <header className="header">
+                <h1 className="flex items-center">
+                  <Avatar />
+                  Suyash Srijan
+                </h1>
+                <p>iOS Engineer at Marks & Spencer in London, UK.</p>
+                <br />
+                <p>When I am free, I enjoy playing/listening to music, playing video games and reading about astrophysics.</p>
+                <br />
+                <p>My neurospicy brain also loves exploring crafting, cooking/baking, and whatever creative pursuit catches my interest!</p>
+              </header>
+              <div className="section-list">
+                {sections.map((section) => (
+                  <section key={section.title}>
+                    <div className="section-header">
+                      <h2>{section.title}</h2>
+                    </div>
+                    <div className="section-content">
+                      {section.items.map((item) => (
+                        <a
+                          key={item.label}
+                          href={item.link}
+                          className="list-item"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Link to ${item.label} (opens in new tab)`}
+                        >
+                          {item.icon}
+                          <span className="label">{item.label}</span>
+                          <div className="chevron">
+                            <BsChevronRight role="presentation" />
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            </main>
+          </div>
         </div>
       </div>
-    </div>
-    <footer role="contentinfo" aria-label="Website Information" className="main-footer">
+      <footer role="contentinfo" aria-label="Website Information" className="main-footer">
         Photography © 2025 Suyash Srijan. All code open source at{" "}
         <a 
           href="https://github.com/theblixguy/personal-website" 
@@ -134,7 +138,7 @@ function Main() {
         >
           GitHub
         </a>
-    </footer>
+      </footer>
     </BackgroundSlideshow>
   );
 }
