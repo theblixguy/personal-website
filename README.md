@@ -1,6 +1,8 @@
 # Personal Website
 
-This is my personal website built with React and Vite.
+This is my personal website built with React and Vite. 
+
+This website is hosted on my own personal server at my home!
 
 ## Setup
 
