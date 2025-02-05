@@ -48,6 +48,7 @@ body {
   mask-image: url("data:image/svg+xml,%3Csvg width='375' height='875' viewBox='0 0 375 875' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M41 0C30.1272 0 20.0405 4.21249 12.8731 11.3799C5.70574 18.5473 1.49325 28.634 1.49325 39.5068L1.49325 835.493C1.49325 846.366 5.70574 856.453 12.8731 863.62C20.0405 870.788 30.1272 875 41 875H334C344.873 875 354.959 870.788 362.127 863.62C369.294 856.453 373.507 846.366 373.507 835.493V39.5068C373.507 28.634 369.294 18.5473 362.127 11.3799C354.959 4.21249 344.873 0 334 0H41Z' fill='black'/%3E%3C/svg%3E");
   mask-size: 100% 100%;
   padding-top: 10px;
+  z-index: 1;
 }
 
 .phone-content {
@@ -282,7 +283,7 @@ body {
   text-align: center;
   color: #f0f0f0;
   font-size: 0.75rem;
-  z-index: -1;
+  z-index: 0;
 }
 
 .main-footer a {
