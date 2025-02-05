@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 const Avatar = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [emoji, setEmoji] = useState('😊');
+
+  const avatarModule = import.meta.glob('./img/avatar.png', { eager: true });
+  const avatarSrc = Object.values(avatarModule)[0].default;
   
   const emojies = [
     '😊', '😄', '😃', '🙂', '😉', 
@@ -25,7 +28,7 @@ const Avatar = () => {
       <div className={`avatar-flipper ${isFlipped ? 'flipped' : ''}`}>
         <div className="avatar-front">
           <img 
-            src="src/img/avatar.png"
+            src={avatarSrc}
             alt="Suyash Srijan"
             className="avatar"
           />
