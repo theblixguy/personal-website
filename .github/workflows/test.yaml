@@ -1,0 +1,50 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup node.js
+        uses: actions/setup-node@v4.2.0
+        with:
+          node-version: '23'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
+
+      - name: Deploy website preview
+        uses: rossjrw/pr-preview-action@v1.6.0
+        with:
+          source-dir: './dist'
+
+      - name: Setup Tailscale VPN
+        uses: tailscale/github-action@v3
+        with:
+          oauth-client-id: ${{ secrets.TAILSCALE_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TAILSCALE_CLIENT_SECRET }}
+          tags: tag:ci
+
+      - name: SFTP dry run
+        uses: wangyucode/sftp-upload-action@v2.0.4
+        with:
+          username: ${{ secrets.SSH_SERVER_USERNAME }}
+          password: ${{ secrets.SSH_SERVER_PASSWORD }}
+          host: ${{ secrets.SSH_SERVER_TAILSCALE_IP }}
+          port: ${{ secrets.SSH_SERVER_TAILSCALE_PORT }}
+          localDir: './dist'
+          remoteDir: ${{ secrets.SSH_SERVER_WEBSITE_PATH }}
+          compress: true
+          forceUpload: true
+          dryRun: true
