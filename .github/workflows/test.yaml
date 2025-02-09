@@ -39,6 +39,11 @@ jobs:
           oauth-secret: ${{ secrets.TAILSCALE_CLIENT_SECRET }}
           tags: tag:ci
 
+      - name: Add SSH known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan ${{ secrets.SSH_SERVER_TAILSCALE_IP }} >> ~/.ssh/known_hosts
+  
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
   
