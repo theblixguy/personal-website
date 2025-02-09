@@ -50,7 +50,7 @@ jobs:
   
       - name: Deploy changes (dry run)
         run: |
-          sshpass -p "${{ secrets.SSH_SERVER_PASSWORD }}" rsync -e "ssh -o StrictHostKeyChecking=no" --verbose --compress --recursive --links --progress --dry-run --itemize-changes ./dist/ ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }}:${{ secrets.SSH_SERVER_WEBSITE_PATH }}
+          sshpass -p "${{ secrets.SSH_SERVER_PASSWORD }}" rsync -e "ssh -o StrictHostKeyChecking=no" -avzhin ./dist/ ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }}:${{ secrets.SSH_SERVER_WEBSITE_PATH }}
 
   cleanup:
     runs-on: ubuntu-latest
