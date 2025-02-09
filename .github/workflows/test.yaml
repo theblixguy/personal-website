@@ -2,12 +2,18 @@ name: Test
 
 on:
   pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
     branches:
       - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: ${{ github.event.action != 'closed' }}
     
     steps:
       - name: Checkout repository
@@ -41,11 +47,18 @@ jobs:
   
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
-
-      - name: Check destination files
-        run: |
-          sshpass -p "${{ secrets.SSH_SERVER_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }} "ls -la ${{ secrets.SSH_SERVER_WEBSITE_PATH }}"
   
       - name: Deploy changes (dry run)
         run: |
-          sshpass -p "${{ secrets.SSH_SERVER_PASSWORD }}" rsync -e "ssh -o StrictHostKeyChecking=no" -avzhic --progress --dry-run ./dist/ ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }}:${{ secrets.SSH_SERVER_WEBSITE_PATH }}
+          sshpass -p "${{ secrets.SSH_SERVER_PASSWORD }}" rsync -e "ssh -o StrictHostKeyChecking=no" -avzhi --no-times --progress --dry-run ./dist/ ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }}:${{ secrets.SSH_SERVER_WEBSITE_PATH }}
+
+  cleanup:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.action == 'closed' }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cleanup preview
+        uses: rossjrw/pr-preview-action@v1.6.0
+        with:
+          source-dir: './dist'
+          action: remove
