@@ -34,6 +34,6 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
     
-      - name: Deploy changes (dry run)
+      - name: Deploy changes
         run: |
           sshpass -p "${{ secrets.SSH_SERVER_PASSWORD }}" rsync -e "ssh -o StrictHostKeyChecking=no" -azh --no-perms ./dist/ ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }}:${{ secrets.SSH_SERVER_WEBSITE_PATH }}
