@@ -57,7 +57,7 @@ const sections = [
       {
         icon: <div className="icon bluesky"><FaBluesky role="presentation" className="bluesky" /></div>,
         label: 'Bluesky',
-        link: 'https://bsky.app/profile/suyashsrijan.bsky.social'
+        link: 'https://bsky.app/profile/suyashsrijan.com'
       },
       {
         icon: <div className="icon soundcloud"><FaSoundcloud role="presentation" className="soundcloud" /></div>,
