@@ -45,12 +45,9 @@ jobs:
           oauth-secret: ${{ secrets.TAILSCALE_CLIENT_SECRET }}
           tags: tag:ci
   
-      - name: Install sshpass
-        run: sudo apt-get install -y sshpass
-  
       - name: Deploy changes (dry run)
         run: |
-          sshpass -p "${{ secrets.SSH_SERVER_PASSWORD }}" rsync -e "ssh -o StrictHostKeyChecking=no" -avzhin --no-perms ./dist/ ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }}:${{ secrets.SSH_SERVER_WEBSITE_PATH }}
+          rsync -azh --no-perms ./dist/ ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }}:${{ secrets.SSH_SERVER_WEBSITE_PATH }}
 
   cleanup:
     runs-on: ubuntu-latest
