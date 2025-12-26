@@ -31,9 +31,11 @@ jobs:
           oauth-secret: ${{ secrets.TAILSCALE_CLIENT_SECRET }}
           tags: tag:ci
 
-      - name: Install sshpass
-        run: sudo apt-get install -y sshpass
+      - name: Setup SSH known hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
     
       - name: Deploy changes
         run: |
-          sshpass -p "${{ secrets.SSH_SERVER_PASSWORD }}" rsync -e "ssh -o StrictHostKeyChecking=no" -azh --no-perms ./dist/ ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }}:${{ secrets.SSH_SERVER_WEBSITE_PATH }}
+          rsync -azh --no-perms ./dist/ ${{ secrets.SSH_SERVER_USERNAME }}@${{ secrets.SSH_SERVER_TAILSCALE_IP }}:${{ secrets.SSH_SERVER_WEBSITE_PATH }}
