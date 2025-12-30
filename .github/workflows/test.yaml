@@ -37,7 +37,7 @@ jobs:
         run: npm run build
 
       - name: Deploy website preview
-        uses: rossjrw/pr-preview-action@v1.7.0
+        uses: rossjrw/pr-preview-action@v1.7.2
         with:
           source-dir: './dist'
 
@@ -67,7 +67,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6.0.1
       - name: Cleanup preview
-        uses: rossjrw/pr-preview-action@v1.7.0
+        uses: rossjrw/pr-preview-action@v1.7.2
         with:
           source-dir: './dist'
           action: remove
