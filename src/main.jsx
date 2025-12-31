@@ -1,4 +1,3 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { 
@@ -12,8 +11,9 @@ import {
 } from 'react-icons/bs';
 
 import {
+  FaBlog,
   FaBluesky,
-  FaSoundcloud
+  FaSoundcloud,
 } from 'react-icons/fa6';
 
 import StatusBar from './status-bar';
@@ -39,6 +39,11 @@ const sections = [
   {
     title: 'Social',
     items: [
+      {
+        icon: <div className="icon blog"><FaBlog role="presentation" className="blog" /></div>,
+        label: 'Personal Blog',
+        link: 'https://www.suyashsrijan.com/blog'
+      },
       {
         icon: <div className="icon linkedin"><BsLinkedin role="presentation" className="linkedin" /></div>,
         label: 'LinkedIn',
@@ -93,9 +98,7 @@ function Main() {
                 </h1>
                 <p>iOS Engineer at Marks & Spencer in London, UK.</p>
                 <br />
-                <p>When I am free, I enjoy playing/listening to music, playing video games and reading about astrophysics.</p>
-                <br />
-                <p>My neurospicy brain also loves exploring crafting, cooking/baking, and whatever creative pursuit catches my interest!</p>
+                <p>I play music, game, and read about black holes. I also cook, craft, and chase whatever creative tangent my neurospicy brain throws at me.</p>
               </header>
               <div className="section-list">
                 {sections.map((section) => (
