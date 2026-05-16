@@ -1,13 +1,14 @@
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { 
-  BsFileText, 
-  BsGithub, 
-  BsLinkedin, 
+import {
+  BsFileText,
+  BsGithub,
+  BsLinkedin,
   BsInstagram,
   BsThreads,
   BsEnvelope,
-  BsChevronRight 
+  BsChevronRight,
 } from 'react-icons/bs';
 
 import {
@@ -24,64 +25,63 @@ const sections = [
   {
     title: 'About',
     items: [
-      {
-        icon: <div className="icon file"><BsFileText role="presentation" className="file" /></div>,
-        label: 'CV',
-        link: '/download/Suyash_Srijan_Resume.pdf'
-      },
-      {
-        icon: <div className="icon github"><BsGithub role="presentation" className="github" /></div>,
-        label: 'GitHub',
-        link: 'https://github.com/theblixguy'
-      }
-    ]
+      { variant: 'file',   icon: BsFileText, label: 'CV',     link: '/download/Suyash_Srijan_Resume.pdf' },
+      { variant: 'github', icon: BsGithub,   label: 'GitHub', link: 'https://github.com/theblixguy' },
+    ],
   },
   {
     title: 'Social',
     items: [
-      {
-        icon: <div className="icon blog"><FaBlog role="presentation" className="blog" /></div>,
-        label: 'Personal Blog',
-        link: 'https://www.suyashsrijan.com/blog'
-      },
-      {
-        icon: <div className="icon linkedin"><BsLinkedin role="presentation" className="linkedin" /></div>,
-        label: 'LinkedIn',
-        link: 'https://www.linkedin.com/in/suyashsrij'
-      },
-      {
-        icon: <div className="icon instagram"><BsInstagram role="presentation" className="instagram" /></div>,
-        label: 'Instagram',
-        link: 'https://instagram.com/suyashsrijan'
-      },
-      {
-        icon: <div className="icon threads"><BsThreads role="presentation" className="threads" /></div>,
-        label: 'Threads',
-        link: 'https://threads.net/@suyashsrijan'
-      },
-      {
-        icon: <div className="icon bluesky"><FaBluesky role="presentation" className="bluesky" /></div>,
-        label: 'Bluesky',
-        link: 'https://bsky.app/profile/suyashsrijan.com'
-      },
-      {
-        icon: <div className="icon soundcloud"><FaSoundcloud role="presentation" className="soundcloud" /></div>,
-        label: 'SoundCloud',
-        link: 'https://soundcloud.com/suyashsrijan'
-      }
-    ]
+      { variant: 'blog',       icon: FaBlog,       label: 'Personal Blog', link: 'https://www.suyashsrijan.com/blog' },
+      { variant: 'linkedin',   icon: BsLinkedin,   label: 'LinkedIn',      link: 'https://www.linkedin.com/in/suyashsrij' },
+      { variant: 'instagram',  icon: BsInstagram,  label: 'Instagram',     link: 'https://instagram.com/suyashsrijan' },
+      { variant: 'threads',    icon: BsThreads,    label: 'Threads',       link: 'https://threads.net/@suyashsrijan' },
+      { variant: 'bluesky',    icon: FaBluesky,    label: 'Bluesky',       link: 'https://bsky.app/profile/suyashsrijan.com' },
+      { variant: 'soundcloud', icon: FaSoundcloud, label: 'SoundCloud',    link: 'https://soundcloud.com/suyashsrijan' },
+    ],
   },
   {
     title: 'Contact',
     items: [
-      {
-        icon: <div className="icon email"><BsEnvelope role="presentation" className="email" /></div>,
-        label: 'Email',
-        link: 'mailto:suyashsrijan@outlook.com'
-      }
-    ]
-  }
+      { variant: 'email', icon: BsEnvelope, label: 'Email', link: 'mailto:suyashsrijan@outlook.com' },
+    ],
+  },
 ];
+
+function ListItem({ icon: Icon, variant, label, link }) {
+  return (
+    <a
+      href={link}
+      className="list-item"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Link to ${label} (opens in new tab)`}
+    >
+      <div className={`icon ${variant}`}>
+        <Icon role="presentation" className={variant} />
+      </div>
+      <span className="label">{label}</span>
+      <div className="chevron">
+        <BsChevronRight role="presentation" />
+      </div>
+    </a>
+  );
+}
+
+function Section({ title, items }) {
+  return (
+    <section>
+      <div className="section-header">
+        <h2>{title}</h2>
+      </div>
+      <div className="section-content">
+        {items.map((item) => (
+          <ListItem key={item.label} {...item} />
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function Main() {
   return (
@@ -92,7 +92,7 @@ function Main() {
             <StatusBar />
             <main role="main" aria-label="Personal Profile">
               <header className="header">
-                <h1 className="flex items-center">
+                <h1>
                   <Avatar />
                   Suyash Srijan
                 </h1>
@@ -102,29 +102,7 @@ function Main() {
               </header>
               <div className="section-list">
                 {sections.map((section) => (
-                  <section key={section.title}>
-                    <div className="section-header">
-                      <h2>{section.title}</h2>
-                    </div>
-                    <div className="section-content">
-                      {section.items.map((item) => (
-                        <a
-                          key={item.label}
-                          href={item.link}
-                          className="list-item"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Link to ${item.label} (opens in new tab)`}
-                        >
-                          {item.icon}
-                          <span className="label">{item.label}</span>
-                          <div className="chevron">
-                            <BsChevronRight role="presentation" />
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  </section>
+                  <Section key={section.title} {...section} />
                 ))}
               </div>
             </main>
@@ -133,9 +111,9 @@ function Main() {
       </div>
       <footer role="contentinfo" aria-label="Website Information" className="main-footer">
         Photography © 2025 Suyash Srijan. All code open source at{" "}
-        <a 
-          href="https://github.com/theblixguy/personal-website" 
-          target="_blank" 
+        <a
+          href="https://github.com/theblixguy/personal-website"
+          target="_blank"
           rel="noopener noreferrer"
           aria-label="Website source code on GitHub (opens in new tab)"
         >
@@ -147,4 +125,8 @@ function Main() {
 }
 
 const root = createRoot(document.getElementById('root'));
-root.render(<Main />);
+root.render(
+  <StrictMode>
+    <Main />
+  </StrictMode>
+);

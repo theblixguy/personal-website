@@ -1,61 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import { 
+import { useState, useEffect } from 'react';
+import {
   IoBatteryCharging,
   IoBatteryFull,
   IoBatteryHalf,
-  IoBatteryDead
+  IoBatteryDead,
 } from 'react-icons/io5';
 
+const formatTime = (date) =>
+  date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
 const StatusBar = () => {
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState(() => formatTime(new Date()));
   const [batteryData, setBatteryData] = useState({
     level: null,
     charging: false,
   });
 
   useEffect(() => {
-    const updateTime = () => {
+    let timeoutId;
+
+    const tick = () => {
       const now = new Date();
-      setTime(now.toLocaleTimeString([], { 
-        hour: '2-digit', 
-        minute: '2-digit',
-      }));
+      setTime(formatTime(now));
+      const msToNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+      timeoutId = setTimeout(tick, msToNextMinute);
     };
 
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
+    tick();
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timeoutId);
   }, []);
 
   useEffect(() => {
-    const getBatteryInfo = async () => {
-      try {
-        if ('getBattery' in navigator) {
-          const battery = await navigator.getBattery();
-          
-          const updateBatteryInfo = () => {
-            setBatteryData({
-              level: Math.floor(battery.level * 100),
-              charging: battery.charging,
-            });
-          };
+    if (!('getBattery' in navigator)) {
+      console.debug('Battery API not supported');
+      return;
+    }
 
-          updateBatteryInfo();
-          battery.addEventListener('levelchange', updateBatteryInfo);
-          battery.addEventListener('chargingchange', updateBatteryInfo);
+    let cancelled = false;
+    let battery = null;
 
-          return () => {
-            battery.removeEventListener('levelchange', updateBatteryInfo);
-            battery.removeEventListener('chargingchange', updateBatteryInfo);
-          };
-        }
-      } catch (error) {
-        console.log('Battery API not supported');
-      }
+    const updateBatteryInfo = () => {
+      if (!battery) return;
+      setBatteryData({
+        level: Math.floor(battery.level * 100),
+        charging: battery.charging,
+      });
     };
 
-    getBatteryInfo();
+    navigator.getBattery().then((b) => {
+      if (cancelled) return;
+      battery = b;
+      updateBatteryInfo();
+      battery.addEventListener('levelchange', updateBatteryInfo);
+      battery.addEventListener('chargingchange', updateBatteryInfo);
+    }).catch(() => {
+      console.debug('Battery API not available');
+    });
+
+    return () => {
+      cancelled = true;
+      if (battery) {
+        battery.removeEventListener('levelchange', updateBatteryInfo);
+        battery.removeEventListener('chargingchange', updateBatteryInfo);
+      }
+    };
   }, []);
 
   const getBatteryIcon = () => {
@@ -63,8 +72,8 @@ const StatusBar = () => {
       return <IoBatteryFull role="presentation" className="battery-icon" />;
     }
     if (batteryData.level >= 80) {
-      return batteryData.charging ? 
-        <IoBatteryCharging role="presentation" className="battery-icon" /> : 
+      return batteryData.charging ?
+        <IoBatteryCharging role="presentation" className="battery-icon" /> :
         <IoBatteryFull role="presentation" className="battery-icon" />;
     } else if (batteryData.level >= 50) {
       return <IoBatteryHalf role="presentation" className="battery-icon" />;
