@@ -1,33 +1,45 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
+const avatarModule = import.meta.glob('./img/avatar.png', { eager: true });
+const avatarSrc = Object.values(avatarModule)[0].default;
+
+const emojies = [
+  '😊', '😄', '😃', '🙂', '😉',
+  '😋', '😎', '🥳', '😌', '😁',
+];
 
 const Avatar = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [emoji, setEmoji] = useState('😊');
+  const flipTimeoutRef = useRef(null);
 
-  const avatarModule = import.meta.glob('./img/avatar.png', { eager: true });
-  const avatarSrc = Object.values(avatarModule)[0].default;
-  
-  const emojies = [
-    '😊', '😄', '😃', '🙂', '😉', 
-    '😋', '😎', '🥳', '😌', '😁'
-  ];
+  useEffect(() => {
+    return () => {
+      if (flipTimeoutRef.current) clearTimeout(flipTimeoutRef.current);
+    };
+  }, []);
 
   const handleInteraction = () => {
     const randomIndex = Math.floor(Math.random() * emojies.length);
     setEmoji(emojies[randomIndex]);
     setIsFlipped(true);
-    setTimeout(() => { setIsFlipped(false); }, 800);
+
+    if (flipTimeoutRef.current) clearTimeout(flipTimeoutRef.current);
+    flipTimeoutRef.current = setTimeout(() => {
+      setIsFlipped(false);
+      flipTimeoutRef.current = null;
+    }, 800);
   };
 
   return (
-    <div 
-      className="avatar-container" 
+    <div
+      className="avatar-container"
       onClick={handleInteraction}
       onMouseEnter={handleInteraction}
     >
       <div className={`avatar-flipper ${isFlipped ? 'flipped' : ''}`}>
         <div className="avatar-front">
-          <img 
+          <img
             src={avatarSrc}
             alt="Suyash Srijan"
             className="avatar"
