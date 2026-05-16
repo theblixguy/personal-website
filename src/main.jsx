@@ -96,7 +96,7 @@ function Main() {
                   <Avatar />
                   Suyash Srijan
                 </h1>
-                <p>iOS Engineer at Marks & Spencer in London, UK.</p>
+                <p>Senior Software Engineer at Marks & Spencer in London, UK.</p>
                 <br />
                 <p>I play music, game, and read about black holes. I also cook, craft, and chase whatever creative tangent my neurospicy brain throws at me.</p>
               </header>
@@ -110,7 +110,7 @@ function Main() {
         </div>
       </div>
       <footer role="contentinfo" aria-label="Website Information" className="main-footer">
-        Photography © 2025 Suyash Srijan. All code open source at{" "}
+        Photography © 2026 Suyash Srijan. All code open source at{" "}
         <a
           href="https://github.com/theblixguy/personal-website"
           target="_blank"
