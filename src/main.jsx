@@ -83,43 +83,57 @@ function Section({ title, items }) {
   );
 }
 
+function ProfileContent() {
+  return (
+    <>
+      <header className="header">
+        <h1>
+          <Avatar />
+          Suyash Srijan
+        </h1>
+        <p>Senior Software Engineer at Marks & Spencer in London, UK.</p>
+        <br />
+        <p>I play music, game, and read about black holes. I also cook, craft, and chase whatever creative tangent my neurospicy brain throws at me.</p>
+      </header>
+      <div className="section-list">
+        {sections.map((section) => (
+          <Section key={section.title} {...section} />
+        ))}
+      </div>
+    </>
+  );
+}
+
+function Footer() {
+  return (
+    <footer role="contentinfo" aria-label="Website Information" className="main-footer">
+      Photography © 2026 Suyash Srijan. All code open source at{" "}
+      <a
+        href="https://github.com/theblixguy/personal-website"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Website source code on GitHub (opens in new tab)"
+      >
+        GitHub
+      </a>
+    </footer>
+  );
+}
+
 function Main() {
   return (
     <BackgroundSlideshow>
-      <div className="container">
-        <div className="phone">
-          <div className="phone-content">
+      <div className="site-layout">
+        <div className="container">
+          <main aria-label="Personal Profile" className="phone">
             <StatusBar />
-            <main role="main" aria-label="Personal Profile">
-              <header className="header">
-                <h1>
-                  <Avatar />
-                  Suyash Srijan
-                </h1>
-                <p>Senior Software Engineer at Marks & Spencer in London, UK.</p>
-                <br />
-                <p>I play music, game, and read about black holes. I also cook, craft, and chase whatever creative tangent my neurospicy brain throws at me.</p>
-              </header>
-              <div className="section-list">
-                {sections.map((section) => (
-                  <Section key={section.title} {...section} />
-                ))}
-              </div>
-            </main>
-          </div>
+            <div className="phone-content">
+              <ProfileContent />
+            </div>
+          </main>
         </div>
+        <Footer />
       </div>
-      <footer role="contentinfo" aria-label="Website Information" className="main-footer">
-        Photography © 2026 Suyash Srijan. All code open source at{" "}
-        <a
-          href="https://github.com/theblixguy/personal-website"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Website source code on GitHub (opens in new tab)"
-        >
-          GitHub
-        </a>
-      </footer>
     </BackgroundSlideshow>
   );
 }
